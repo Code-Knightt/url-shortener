@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>URL Shortener</h1>
+    <form method="POST" action="/shorten">
+      <input
+        type="text"
+        name="url"
+        placeholder="Make sure to include http(s)://"
+      />
+      <button type="submit">Shorten</button>
+    </form>
+
+    <table>
+      <tr>
+        <th>URL</th>
+        <th>Shortened URL</th>
+      </tr>
+      <% table.forEach((row) => { %>
+      <tr>
+        <td><%=row.url%></td>
+        <td>
+          <a href="/<%=row.shortUrl%>" target="_blank" rel="noreferrer"
+            ><%=row.shortUrl%></a
+          >
+        </td>
+      </tr>
+      <%})%>
+    </table>
+  </body>
+</html>

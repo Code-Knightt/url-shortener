@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import path from "path";
@@ -33,12 +35,19 @@ app.post("/shorten", async (req, res) => {
 
   if (!count) {
     count = new Counter({
-      count: 0,
+      count: Number(process.env.InitialCount),
     });
   }
 
-  const long_url = req.body.url;
+  let long_url = req.body.url;
   const short_url = encode_url(count.count);
+
+  const web_regex = new RegExp("http", "i");
+  const verify = String(long_url).match(web_regex);
+
+  if (!verify) {
+    long_url = "https://" + long_url;
+  }
 
   const dbObject = new Shortener({
     url: long_url,

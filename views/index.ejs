@@ -10,11 +10,7 @@
   <body>
     <h1>URL Shortener</h1>
     <form method="POST" action="/shorten">
-      <input
-        type="text"
-        name="url"
-        placeholder="Make sure to include http(s)://"
-      />
+      <input type="text" name="url" placeholder="Enter URL" />
       <button type="submit">Shorten</button>
     </form>
 
@@ -27,7 +23,7 @@
       <tr>
         <td><%=row.url%></td>
         <td>
-          <a href="/<%=row.shortUrl%>" target="_blank" rel="noreferrer"
+          <a href="<%=row.shortUrl%>" target="_blank" rel="noreferrer"
             ><%=row.shortUrl%></a
           >
         </td>

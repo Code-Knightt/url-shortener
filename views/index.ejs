@@ -9,23 +9,41 @@
   </head>
   <body>
     <h1>URL Shortener</h1>
-    <form method="POST" action="/shorten">
+    <form method="POST" action="http://localhost:3000/shorten">
       <input type="text" name="url" placeholder="Enter URL" />
       <button type="submit">Shorten</button>
     </form>
 
     <table>
       <tr>
+        <th></th>
         <th>URL</th>
         <th>Shortened URL</th>
+        <th></th>
       </tr>
       <% table.forEach((row) => { %>
       <tr>
+        <td>
+          <form
+            method="POST"
+            action="http://localhost:3000/edit/<%= row.shortUrl%>"
+          >
+            <button type="submit">Edit</button>
+          </form>
+        </td>
         <td><%=row.url%></td>
         <td>
           <a href="<%=row.shortUrl%>" target="_blank" rel="noreferrer"
             ><%=row.shortUrl%></a
           >
+        </td>
+        <td>
+          <form
+            method="POST"
+            action="http://localhost:3000/delete/<%= row.shortUrl%>"
+          >
+            <button type="submit">Delete</button>
+          </form>
         </td>
       </tr>
       <%})%>

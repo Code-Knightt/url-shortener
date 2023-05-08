@@ -30,6 +30,32 @@ app.get("/", async (req, res) => {
   res.render("index", { table: table });
 });
 
+app.post("/edit", async (req, res) => {
+  const url = req.body.url;
+  const short_url = req.body.shortUrl;
+  let link = await Shortener.findOne({ shortUrl: short_url });
+
+  link.url = url;
+  await link.save();
+  res.redirect("/");
+});
+
+app.post("/edit/:id", async (req, res) => {
+  const id = req.params.id;
+  let link = await Shortener.findOne({ shortUrl: id });
+  if (!link) {
+    res.redirect("/");
+  }
+
+  res.render("edit", { url: link.url, shortUrl: link.shortUrl });
+});
+
+app.post("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+  let link = await Shortener.deleteOne({ shortUrl: id });
+  res.redirect("/");
+});
+
 app.post("/shorten", async (req, res) => {
   let count = await Counter.findOne({});
 
